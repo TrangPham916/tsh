@@ -12,8 +12,11 @@
         <p><label for="name">Name:</label>
         <input type="text" id="name" placeholder="Enter your full name"></p>
 
-        <p><label for="dob">Date of Birth:</label>
-        <input type="date" id="dob"></p>
+        <p>
+  <label for="dob">Date of Birth (dd/mm/yyyy):</label>
+  <input type="text" id="dob" placeholder="dd/mm/yyyy">
+</p>
+<p id="dob-error" style="color: red;"></p>
 
         <button onclick="calculateNumerology()">Calculate</button>
 
