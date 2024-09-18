@@ -1,5 +1,6 @@
 function calculateNumerology() {
-  const name = document.getElementById('name').value.toUpperCase();
+  let name = document.getElementById('name').value.toUpperCase();
+    name = removeVietnameseTones(name);  // Chuyển tiếng Việt thành không dấu
   const dob = new Date(document.getElementById('dob').value);
   const day = dob.getDate();
   const month = dob.getMonth() + 1;
@@ -321,4 +322,9 @@ function getLessonDebt(name) {
   );
 
   return missingNumbers.length > 0 ? missingNumbers.join(', ') : 'None';
+}
+function removeVietnameseTones(str) {
+    str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    str = str.replace(/đ/g, 'd').replace(/Đ/g, 'D');
+    return str;
 }
