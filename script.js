@@ -38,10 +38,10 @@ function calculateNumerology() {
   ).innerText = `Thái Độ Bên Ngoài: ${attitudeNumber}`;
   document.getElementById(
     'personalityNumber'
-  ).innerText = `Năng Lực Tiếp Cận: ${personalityNumber}`;
+  ).innerText = `Phản Ứng Ban Đầu: ${personalityNumber}`;
   document.getElementById(
     'destinyNumber'
-  ).innerText = `Động Lực Tiếp Cận: ${destinyNumber}`;
+  ).innerText = `Mong Muốn Ban Đầu: ${destinyNumber}`;
   document.getElementById(
     'coreStrengthNumber'
   ).innerText = `Năng Lượng Thành Phần Nổi Trội: ${coreStrengthNumber}`;
