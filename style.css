@@ -19,7 +19,7 @@ header {
 /* Định dạng cho logo */
 .logo {
   width: 10px; /* Kích thước logo */
-  height: auto;
+  height: 10px;
   margin-right: 20px;
 }
 
