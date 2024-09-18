@@ -1,5 +1,5 @@
 function calculateNumerology() {
-  let name = document.getElementById('name').value.toUpperCase();
+const name = document.getElementById('name').value.toUpperCase();
     name = removeVietnameseTones(name);  // Chuyển tiếng Việt thành không dấu
   const dob = new Date(document.getElementById('dob').value);
   const day = dob.getDate();
