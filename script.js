@@ -152,7 +152,7 @@ function getAttitudeNumber(name) {
 
 function getPersonalityNumber(name) {
   const firstName = name.split(' ').pop(); // Get the last word in the name string
-  const consonants = {
+  const pythagoreanTable = {
     A: 1,
     B: 2,
     C: 3,
@@ -181,7 +181,7 @@ function getPersonalityNumber(name) {
     Z: 8,
   };
   const sum = [...firstName.toUpperCase()].reduce(
-    (acc, char) => acc + (consonants[char] || 0),
+    (acc, char) => acc + (pythagoreanTablechar] || 0),
     0
   );
   return reduceToSingleDigit(sum);
