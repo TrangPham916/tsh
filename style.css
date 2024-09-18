@@ -1,8 +1,33 @@
+/* Style cho toàn bộ trang */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #e0eafc;
+  color: #333;
   margin: 0;
+  padding: 0;
+}
+
+/* Định dạng cho phần header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a3b5d;
   padding: 20px;
+}
+
+/* Định dạng cho logo */
+.logo {
+  width: 100px; /* Kích thước logo */
+  height: auto;
+  margin-right: 20px;
+}
+
+/* Định dạng cho tiêu đề */
+header h1 {
+  color: white;
+  font-size: 2em;
+  margin: 0;
 }
 
 .container {
@@ -14,10 +39,6 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
 
 label {
   display: block;
