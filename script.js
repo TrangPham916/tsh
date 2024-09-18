@@ -153,7 +153,6 @@ function getAttitudeNumber(name) {
 function getPersonalityNumber(name) {
   const firstName = name.split(' ').pop(); // Get the last word in the name string
   const consonants = {
-    A: 1,
     B: 2,
     C: 3,
     D: 4,
