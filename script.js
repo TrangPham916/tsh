@@ -89,7 +89,7 @@ function getPersonalityNumber(name) {
   const firstName = name.split(' ').pop(); // Get the last word in the name string
   const pythagoreanTable = {
     A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 8, J: 1, K: 2,
-    L: 3, M: 4, N: 5, O: 6: P: 7, Q: 8, R: 9, S: 1, T: 2, U: 3; V: 4,
+    L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9, S: 1, T: 2, U: 3, V: 4,
     W: 5, X: 6, Y: 7, Z: 8,
   };
   const sum = [...firstName.toUpperCase()].reduce((acc, char) => acc + (pythagoreanTable[char] || 0), 0);
@@ -181,6 +181,7 @@ function getPersonalYearNumber(day, month, year) {
     reduceToSingleDigit(currentYear);
   return reduceToSingleDigit(sum);
 }
+
 function getLessonDebt(name) {
   const pythagoreanTable = {
     A: 1,
@@ -214,12 +215,7 @@ function getLessonDebt(name) {
   const allNumbers = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
   const numbersInName = new Set(
-    [...name.toUpperCase()].reduce((acc, char) => {
-      if (pythagoreanTable[char]) {
-        acc.add(pythagoreanTable[char]);
-      }
-      return acc;
-    }, new Set())
+    [...name.toUpperCase()].map((char) => pythagoreanTable[char]).filter(Boolean)
   );
 
   const missingNumbers = [...allNumbers].filter(
@@ -228,10 +224,3 @@ function getLessonDebt(name) {
 
   return missingNumbers.length > 0 ? missingNumbers.join(', ') : 'None';
 }
-
-
-
-
-
-
-
