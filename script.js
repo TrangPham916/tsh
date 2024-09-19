@@ -39,16 +39,30 @@ function isVowel(letter, prevLetter) {
 // Helper function to reduce numbers to a single digit or karmic number
 function reduceToKarmicOrSingleDigit(number) {
   const karmicNumbers = { 13: 4, 14: 5, 16: 7, 19: 1 };
-  while (number > 9 && !karmicNumbers[number]) {
-    number = number
+  const masterNumbers = new Set([11, 22]);
+
+  // Reduce the number to a single digit or special number if needed
+  let reducedNumber = number;
+  while (reducedNumber > 9) {
+    if (karmicNumbers[reducedNumber] || masterNumbers.has(reducedNumber)) {
+      break; // Stop reducing if we hit a karmic or master number
+    }
+    reducedNumber = reducedNumber
       .toString()
       .split('')
       .reduce((acc, digit) => acc + parseInt(digit), 0);
   }
-  return karmicNumbers[number]
-    ? `${karmicNumbers[number]} (${number})`
-    : number;
+
+  // Return karmic number representation or master number
+  if (karmicNumbers[reducedNumber]) {
+    return `${karmicNumbers[reducedNumber]} (${reducedNumber})`;
+  } else if (masterNumbers.has(reducedNumber)) {
+    return reducedNumber;
+  } else {
+    return reducedNumber;
+  }
 }
+
 
 // Reduce any number to a single digit except master numbers (11, 22)
 function reduceToSingleDigit(number) {
