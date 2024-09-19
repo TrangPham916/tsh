@@ -45,11 +45,13 @@ function reduceToSingleDigit(number) {
 
 // Generalized function to sum letters based on the character type
 function sumLetters(name, checkFunction) {
-  const sum = [...name.toUpperCase()].reduce((acc, char, idx) => {
-    const prevChar = name[idx - 1]; // Previous character to check context for "Y"
-    return acc + (checkFunction(char, prevChar) ? PYTHAGOREAN_TABLE[char] || 0 : 0);
-  }, 0);
-  return reduceToSingleDigit(sum);
+  const nameParts = name.split(' ').map(part => {
+    return [...part].reduce((acc, char, idx) => {
+      const prevChar = part[idx - 1]; // Previous character to check context for "Y"
+      return acc + (checkFunction(char, prevChar) ? PYTHAGOREAN_TABLE[char] || 0 : 0);
+    }, 0);
+  });
+  return nameParts.reduce((acc, value) => acc + reduceToSingleDigit(value), 0);
 }
 
 // Function to get the life path number
@@ -79,15 +81,34 @@ function getAttitudeNumber(name) {
 // Function to get the personality number (first name, all letters)
 function getPersonalityNumber(name) {
   const firstName = name.split(' ').pop(); // Get the last word in the name string
-  const sum = sumLetters(firstName, () => true);
-  return reduceToKarmicOrSingleDigit(sum);
+  return sumLetters(firstName, () => true);
 }
 
 // Function to get the destiny number (first name, sum vowels)
 function getDestinyNumber(name) {
   const firstName = name.split(' ').pop(); // Get the last word in the name string
-  const sum = sumLetters(firstName, isVowel);
-  return reduceToKarmicOrSingleDigit(sum);
+  return sumLetters(firstName, isVowel);
+}
+
+// Function to get the core strength number
+const PYTHAGOREAN_TABLE = {
+  A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9,
+  J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9,
+  S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
+};
+
+function getBalanceNumber(name) {
+  // Lấy các phần của tên đầy đủ
+  const nameParts = name.split(' ');
+
+  // Tính tổng giá trị của chữ cái đầu tiên trong từng phần
+  const total = nameParts.reduce((acc, part) => {
+    const firstChar = part.charAt(0).toUpperCase(); // Lấy chữ cái đầu tiên và chuyển thành chữ hoa
+    return acc + (PYTHAGOREAN_TABLE[firstChar] || 0); // Cộng giá trị của chữ cái vào tổng
+  }, 0);
+
+  // Trả về giá trị đã giảm về một chữ số đơn
+  return sumLetters(total);
 }
 
 // Function to get the core strength number
@@ -99,14 +120,18 @@ function getCoreStrengthNumber(name) {
     return acc;
   }, {});
 
+  // Find letters that appear at least 3 times
   const dominantLetters = Object.keys(counts).filter(
     (char) => counts[char] >= 3
   );
 
+  // Map these letters to their corresponding numbers
   const numbers = dominantLetters.map((char) => PYTHAGOREAN_TABLE[char]);
 
+  // Remove duplicates (e.g., if multiple letters map to the same number, keep only one)
   const uniqueNumbers = [...new Set(numbers)];
 
+  // Return the results or 'None' if no dominant letters
   return uniqueNumbers.length > 0 ? uniqueNumbers.join(', ') : 'None';
 }
 
@@ -173,9 +198,7 @@ function calculateNumerology() {
   document.getElementById('coreStrengthNumber').innerText = `Năng Lượng Thành Phần Nổi Trội: ${coreStrengthNumber}`;
   document.getElementById('personalYearNumber').innerText = `Năm Thần Số: ${personalYearNumber}`;
   document.getElementById('lessonDebt').innerText = `Nợ Bài Học: ${lessonDebt}`;
-  document.getElementById('karmicDebtNumbers').innerText = `Nợ Nghiệp: ${karmicDebtNumbers}`;
 }
-
 // Function to handle keypress event
 function handleKeyPress(event) {
   if (event.key === 'Enter') {
@@ -197,3 +220,4 @@ function initializeEventListeners() {
 
 // Call initialize function when the document is ready
 document.addEventListener('DOMContentLoaded', initializeEventListeners);
+
