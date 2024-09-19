@@ -75,7 +75,7 @@ function getAttitudeNumber(name) {
   return sumLetters(name, (char, prevChar) => !isVowel(char, prevChar));
 }
 
-// Function to get the personality number (first name, sum consonants)
+// Function to get the personality number (first name, all letters)
 function getPersonalityNumber(name) {
   const firstName = name.split(' ').pop(); // Get the last word in the name string
   return sumLetters(firstName, () => true);
