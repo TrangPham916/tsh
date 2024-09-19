@@ -145,12 +145,6 @@ function calculateNumerology() {
   const dob = document.getElementById('dob').value;
   const [day, month, year] = dob.split('/').map(Number);
 
-  // Validate date of birth
-  if (isNaN(day) || isNaN(month) || isNaN(year) || day > 31 || month > 12) {
-    document.getElementById('dob-error').innerText = 'Please enter a valid date of birth.';
-    return;
-  }
-
   const lifePathNumber = getLifePathNumber(day, month, year);
   const expressionNumber = getExpressionNumber(name);
   const soulUrgeNumber = getSoulUrgeNumber(name);
