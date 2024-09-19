@@ -7,29 +7,7 @@ body {
   padding: 0;
 }
 
-/* Định dạng cho phần header */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #1a3b5d;
-  padding: 20px;
-}
-
-/* Định dạng cho logo */
-.logo {
-  width: 1px; /* Kích thước logo */
-  height: 1px;
-  margin-right: 20px;
-}
-
-/* Định dạng cho tiêu đề */
-header h1 {
-  color: white;
-  font-size: 2em;
-  margin: 0;
-}
-
+/* Định dạng cho phần container */
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -39,7 +17,21 @@ header h1 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Định dạng cho logo */
+.logo {
+  width: 100px; /* Kích thước logo */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
 
+/* Định dạng cho tiêu đề */
+h1 {
+  text-align: center;
+  color: #1a3b5d;
+}
+
+/* Định dạng cho các nhãn và trường nhập liệu */
 label {
   display: block;
   margin-top: 10px;
@@ -55,6 +47,7 @@ input {
   border: 1px solid #ccc;
 }
 
+/* Định dạng cho nút bấm */
 button {
   width: 100%;
   padding: 10px;
@@ -70,6 +63,7 @@ button:hover {
   background-color: #45a049;
 }
 
+/* Định dạng cho phần kết quả */
 .results {
   margin-top: 20px;
 }
