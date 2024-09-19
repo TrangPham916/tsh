@@ -32,6 +32,24 @@ function reduceToKarmicOrSingleDigit(number) {
     : number;
 }
 
+
+function reduceToKarmicOrSingleDigit(number) {
+  const karmicNumbers = { 13: 4, 14: 5, 16: 7, 19: 1 };
+  while (number > 9 && !karmicNumbers[number]) {
+    number = number
+      .toString()
+      .split('')
+      .reduce((acc, digit) => acc + parseInt(digit), 0);
+  }
+  return karmicNumbers[number]
+    ? `${karmicNumbers[number]} (${number})`
+    : number;
+}
+
+
+
+
+
 // Reduce any number to a single digit except master numbers (11, 22)
 function reduceToSingleDigit(number) {
   while (number > 9 && number !== 11 && number !== 22) {
@@ -62,17 +80,20 @@ function getLifePathNumber(day, month, year) {
 
 // Function to get the expression number (using all letters)
 function getExpressionNumber(name) {
-  return sumLetters(name, () => true); // Sum all letters
+  const sum = sumLetters(name, () => true); // Sum all letters
+  return reduceToKarmicOrSingleDigit(sum);
 }
 
 // Function to get the soul urge number (sum only vowels)
 function getSoulUrgeNumber(name) {
-  return sumLetters(name, isVowel);
+  const sum = sumLetters(name, isVowel);
+  return reduceToKarmicOrSingleDigit(sum);
 }
 
 // Function to get the attitude number (sum consonants)
 function getAttitudeNumber(name) {
-  return sumLetters(name, (char, prevChar) => !isVowel(char, prevChar));
+  const sum = sumLetters(name, (char, prevChar) => !isVowel(char, prevChar));
+  return reduceToKarmicOrSingleDigit(sum);
 }
 
 // Function to get the personality number (first name, all letters)
