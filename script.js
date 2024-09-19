@@ -113,6 +113,20 @@ function getDestinyNumber(name) {
   return sumLetters(firstName, isVowel);
 }
 
+function getBalanceNumber(name) {
+  // Lấy các phần của tên đầy đủ
+  const nameParts = name.split(' ');
+
+  // Tính tổng giá trị của chữ cái đầu tiên trong từng phần
+  const total = nameParts.reduce((acc, part) => {
+    const firstChar = part.charAt(0).toUpperCase(); // Lấy chữ cái đầu tiên và chuyển thành chữ hoa
+    return acc + (PYTHAGOREAN_TABLE[firstChar] || 0); // Cộng giá trị của chữ cái vào tổng
+  }, 0);
+
+  // Trả về giá trị đã giảm về một chữ số đơn
+  return reduceToSingleDigit(total);
+}
+
 // Function to get the core strength number
 function getCoreStrengthNumber(name) {
   const counts = [...name.toUpperCase()].reduce((acc, char) => {
@@ -179,6 +193,7 @@ function calculateNumerology() {
   const attitudeNumber = getAttitudeNumber(name);
   const personalityNumber = getPersonalityNumber(name);
   const destinyNumber = getDestinyNumber(name);
+  const balanceNumber = getBalanceNumber(name);
   const coreStrengthNumber = getCoreStrengthNumber(name);
   const personalYearNumber = getPersonalYearNumber(day, month, year);
   const lessonDebt = getLessonDebt(name);
@@ -210,6 +225,9 @@ function calculateNumerology() {
   document.getElementById(
     'destinyNumber'
   ).innerText = `Mong Muốn Ban Đầu: ${destinyNumber}`;
+  document.getElementById(
+    'balanceNumber'
+  ).innerText = `Số Cân Bằng: ${balanceNumber}`;
   document.getElementById(
     'coreStrengthNumber'
   ).innerText = `Năng Lượng Thành Phần Nổi Trội: ${coreStrengthNumber}`;
