@@ -183,24 +183,6 @@ function calculateNumerology() {
   document.getElementById('personalYearNumber').innerText = `Năm Thần Số: ${personalYearNumber}`;
   document.getElementById('lessonDebt').innerText = `Nợ Bài Học: ${lessonDebt}`;
 }
-// Function to handle keypress event
-function handleKeyPress(event) {
-  if (event.key === 'Enter') {
-    event.preventDefault(); // Ngăn chặn hành vi mặc định của Enter (nếu có)
-    calculateNumerology(); // Gọi hàm calculateNumerology()
-  }
-}
-
-// Function to initialize event listeners
-function initializeEventListeners() {
-  const inputs = document.querySelectorAll('input'); // Lấy tất cả các ô nhập liệu
-  inputs.forEach(input => {
-    input.addEventListener('keypress', handleKeyPress);
-  });
-
-  const calculateButton = document.getElementById('calculateButton');
-  calculateButton.addEventListener('click', calculateNumerology); // Đảm bảo nút Calculate hoạt động
-}
 
 // Call initialize function when the document is ready
 document.addEventListener('DOMContentLoaded', initializeEventListeners);
