@@ -108,7 +108,7 @@ function getBalanceNumber(name) {
   }, 0);
 
   // Trả về giá trị đã giảm về một chữ số đơn
-  return reduceToSingleDigit(total);
+  return sumLetters(total);
 }
 
 // Function to get the core strength number
