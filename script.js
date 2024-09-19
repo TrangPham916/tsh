@@ -97,6 +97,20 @@ const PYTHAGOREAN_TABLE = {
   S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
 };
 
+function getBalanceNumber(name) {
+  // Lấy các phần của tên đầy đủ
+  const nameParts = name.split(' ');
+
+  // Tính tổng giá trị của chữ cái đầu tiên trong từng phần
+  const total = nameParts.reduce((acc, part) => {
+    const firstChar = part.charAt(0).toUpperCase(); // Lấy chữ cái đầu tiên và chuyển thành chữ hoa
+    return acc + (PYTHAGOREAN_TABLE[firstChar] || 0); // Cộng giá trị của chữ cái vào tổng
+  }, 0);
+
+  // Trả về giá trị đã giảm về một chữ số đơn
+  return reduceToSingleDigit(total);
+}
+
 // Function to get the core strength number
 function getCoreStrengthNumber(name) {
   const counts = [...name.toUpperCase()].reduce((acc, char) => {
@@ -163,6 +177,7 @@ function calculateNumerology() {
   const coreStrengthNumber = getCoreStrengthNumber(name);
   const personalYearNumber = getPersonalYearNumber(day, month, year);
   const lessonDebt = getLessonDebt(name);
+  const balanceNumber = getBalanceNumber(name);
 
   const karmicDebtNumbers = [
     getKarmicDebtNumber(lifePathNumber),
@@ -179,6 +194,7 @@ function calculateNumerology() {
   document.getElementById('attitudeNumber').innerText = `Thái Độ Bên Ngoài: ${attitudeNumber}`;
   document.getElementById('personalityNumber').innerText = `Phản Ứng Ban Đầu: ${personalityNumber}`;
   document.getElementById('destinyNumber').innerText = `Mong Muốn Ban Đầu: ${destinyNumber}`;
+  document.getElementById('destinyNumber').innerText = `Cân Bằng Tâm Lý: ${destinyNumber}`;
   document.getElementById('coreStrengthNumber').innerText = `Năng Lượng Thành Phần Nổi Trội: ${coreStrengthNumber}`;
   document.getElementById('personalYearNumber').innerText = `Năm Thần Số: ${personalYearNumber}`;
   document.getElementById('lessonDebt').innerText = `Nợ Bài Học: ${lessonDebt}`;
