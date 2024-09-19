@@ -93,14 +93,16 @@ function getDestinyNumber(name) {
 // Function to get the core strength number
 function getCoreStrengthNumber(name) {
   const counts = [...name.toUpperCase()].reduce((acc, char) => {
-    if (![' ', '-'].includes(char)) {
+    if (char in PYTHAGOREAN_TABLE) {
       acc[char] = (acc[char] || 0) + 1;
     }
     return acc;
   }, {});
+
   const dominantLetters = Object.keys(counts).filter(
     (char) => counts[char] >= 3
   );
+
   const numbers = dominantLetters.map((char) => PYTHAGOREAN_TABLE[char]);
   return numbers.length > 0 ? numbers.join(', ') : 'None';
 }
