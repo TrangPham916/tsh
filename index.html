@@ -1,127 +1,39 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Numerology Results</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    table, th, td {
-      border: 1px solid #ddd;
-    }
-
-    th, td {
-      padding: 10px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #67BF7F; /* Xanh lá nhạt */
-      color: #000;
-    }
-
-    td {
-      background-color: #E6F1D8; /* Màu xanh lá tươi tắn */
-    }
-
-    .container {
-      width: 50%;
-      margin: 0 auto;
-    }
-
-    .button {
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .button:hover {
-      background-color: #45a049;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numerology Calculator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Numerology</h1>
-    
-    <p><label for="name">Họ và Tên:</label>
-    <input type="text" id="name" placeholder="Nhập tên của bạn"><p>
-
-    <p><label for="dob">Ngày Sinh (dd/mm/yyyy):</label>
-    <input type="text" id="dob" placeholder="Nhập ngày sinh của bạn"><p>
-
-    <button id="calculateButton" class="button">Tính Toán</button>
-
-    <!-- Bảng kết quả -->
-    <table id="resultsTable">
-      <thead>
-        <tr>
-          <th>Loại Số</th>
-          <th>Kết Quả</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Sứ Mệnh Cuộc Đời</td>
-          <td id="lifePathNumber"></td>
-        </tr>
-        <tr>
-          <td>Tố Chất Tiềm Ẩn</td>
-          <td id="expressionNumber"></td>
-        </tr>
-        <tr>
-          <td>Động Lực Bên Trong</td>
-          <td id="soulUrgeNumber"></td>
-        </tr>
-        <tr>
-          <td>Thái Độ Bên Ngoài</td>
-          <td id="attitudeNumber"></td>
-        </tr>
-        <tr>
-          <td>Phản Ứng Ban Đầu</td>
-          <td id="personalityNumber"></td>
-        </tr>
-        <tr>
-          <td>Mong Muốn Ban Đầu</td>
-          <td id="destinyNumber"></td>
-        </tr>
-        <tr>
-          <td>Số Cân Bằng</td>
-          <td id="balanceNumber"></td>
-        </tr>
-        <tr>
-          <td>Năng Lượng Thành Phần Nổi Trội</td>
-          <td id="coreStrengthNumber"></td>
-        </tr>
-        <tr>
-          <td>Năm Thần Số</td>
-          <td id="personalYearNumber"></td>
-        </tr>
-        <tr>
-          <td>Nợ Bài Học</td>
-          <td id="lessonDebt"></td>
-        </tr>
-        <tr>
-          <td>Nợ Nghiệp</td>
-          <td id="karmicDebtNumber"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <script src="script.js"></script>
+    <div class="container">
+        <img src="https://yt3.googleusercontent.com/TgmVhsTXB5JxMdN6ofQZc5kHFJ6wr3M_P2oXmxB6Shq4rfAooTNut3oR2L7cBKN53-VQdYwK=s900-c-k-c0x00ffffff-no-rj" alt="Numerology Logo" class="logo">
+        <h1>Numerology Calculator</h1>
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your full name">
+        </p>
+        <p>
+            <label for="dob">Date of Birth (dd/mm/yyyy):</label>
+            <input type="text" id="dob" placeholder="dd/mm/yyyy">
+        </p>
+        <p id="dob-error" style="color: red;"></p>
+        <button id="calculateButton">Calculate</button>
+        <div class="results">
+            <p id="lifePathNumber"></p>
+            <p id="expressionNumber"></p>
+            <p id="soulUrgeNumber"></p>
+            <p id="attitudeNumber"></p>
+            <p id="personalityNumber"></p>
+            <p id="destinyNumber"></p>
+            <p id="balanceNumber"></p>
+            <p id="coreStrengthNumber"></p>
+            <p id="personalYearNumber"></p>
+            <p id="lessonDebt"></p>
+            <p id="karmicDebtNumber"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
