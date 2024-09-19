@@ -91,6 +91,13 @@ function getDestinyNumber(name) {
 }
 
 // Function to get the core strength number
+const PYTHAGOREAN_TABLE = {
+  A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9,
+  J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9,
+  S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
+};
+
+// Function to get the core strength number
 function getCoreStrengthNumber(name) {
   const counts = [...name.toUpperCase()].reduce((acc, char) => {
     if (char in PYTHAGOREAN_TABLE) {
@@ -99,12 +106,19 @@ function getCoreStrengthNumber(name) {
     return acc;
   }, {});
 
+  // Find letters that appear at least 3 times
   const dominantLetters = Object.keys(counts).filter(
     (char) => counts[char] >= 3
   );
 
+  // Map these letters to their corresponding numbers
   const numbers = dominantLetters.map((char) => PYTHAGOREAN_TABLE[char]);
-  return numbers.length > 0 ? numbers.join(', ') : 'None';
+
+  // Remove duplicates (e.g., if multiple letters map to the same number, keep only one)
+  const uniqueNumbers = [...new Set(numbers)];
+
+  // Return the results or 'None' if no dominant letters
+  return uniqueNumbers.length > 0 ? uniqueNumbers.join(', ') : 'None';
 }
 
 // Function to get the personal year number
