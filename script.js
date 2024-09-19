@@ -91,13 +91,6 @@ function getDestinyNumber(name) {
 }
 
 // Function to get the core strength number
-const PYTHAGOREAN_TABLE = {
-  A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9,
-  J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9,
-  S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
-};
-
-// Function to get the core strength number
 function getCoreStrengthNumber(name) {
   const counts = [...name.toUpperCase()].reduce((acc, char) => {
     if (char in PYTHAGOREAN_TABLE) {
@@ -149,10 +142,14 @@ function getKarmicDebtNumber(number) {
 // Function to calculate numerology based on input
 function calculateNumerology() {
   const name = document.getElementById('name').value.toUpperCase();
-  const dob = new Date(document.getElementById('dob').value);
-  const day = dob.getDate();
-  const month = dob.getMonth() + 1;
-  const year = dob.getFullYear();
+  const dob = document.getElementById('dob').value;
+  const [day, month, year] = dob.split('/').map(Number);
+
+  // Validate date of birth
+  if (isNaN(day) || isNaN(month) || isNaN(year) || day > 31 || month > 12) {
+    document.getElementById('dob-error').innerText = 'Please enter a valid date of birth.';
+    return;
+  }
 
   const lifePathNumber = getLifePathNumber(day, month, year);
   const expressionNumber = getExpressionNumber(name);
@@ -182,6 +179,26 @@ function calculateNumerology() {
   document.getElementById('coreStrengthNumber').innerText = `Năng Lượng Thành Phần Nổi Trội: ${coreStrengthNumber}`;
   document.getElementById('personalYearNumber').innerText = `Năm Thần Số: ${personalYearNumber}`;
   document.getElementById('lessonDebt').innerText = `Nợ Bài Học: ${lessonDebt}`;
+  document.getElementById('karmicDebtNumber').innerText = `Nợ Nghiệp: ${karmicDebtNumbers}`;
+}
+
+// Function to handle keypress event
+function handleKeyPress(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault(); // Ngăn chặn hành vi mặc định của Enter (nếu có)
+    calculateNumerology(); // Gọi hàm calculateNumerology()
+  }
+}
+
+// Function to initialize event listeners
+function initializeEventListeners() {
+  const inputs = document.querySelectorAll('input'); // Lấy tất cả các ô nhập liệu
+  inputs.forEach(input => {
+    input.addEventListener('keypress', handleKeyPress);
+  });
+
+  const calculateButton = document.getElementById('calculateButton');
+  calculateButton.addEventListener('click', calculateNumerology); // Đảm bảo nút Calculate hoạt động
 }
 
 // Call initialize function when the document is ready
