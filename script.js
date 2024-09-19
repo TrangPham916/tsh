@@ -1,13 +1,31 @@
 // Constants for vowels, consonants, and Pythagorean table
 const VOWELS = { A: 1, E: 5, I: 9, O: 6, U: 3 };
 const CONSONANTS = {
-  B: 2, C: 3, D: 4, F: 6, G: 7, H: 8, J: 1, K: 2, L: 3,
-  M: 4, N: 5, P: 7, Q: 8, R: 9, S: 1, T: 2, V: 4, W: 5,
-  X: 6, Z: 8
+  B: 2,
+  C: 3,
+  D: 4,
+  F: 6,
+  G: 7,
+  H: 8,
+  J: 1,
+  K: 2,
+  L: 3,
+  M: 4,
+  N: 5,
+  P: 7,
+  Q: 8,
+  R: 9,
+  S: 1,
+  T: 2,
+  V: 4,
+  W: 5,
+  X: 6,
+  Z: 8,
 };
 const PYTHAGOREAN_TABLE = {
-  ...VOWELS, ...CONSONANTS,
-  Y: 7 // Special case, handled in functions based on context
+  ...VOWELS,
+  ...CONSONANTS,
+  Y: 7, // Special case, handled in functions based on context
 };
 
 // Helper function to determine if a letter is a vowel
@@ -45,10 +63,12 @@ function reduceToSingleDigit(number) {
 
 // Generalized function to sum letters based on the character type
 function sumLetters(name, checkFunction) {
-  const nameParts = name.split(' ').map(part => {
+  const nameParts = name.split(' ').map((part) => {
     return [...part].reduce((acc, char, idx) => {
       const prevChar = part[idx - 1]; // Previous character to check context for "Y"
-      return acc + (checkFunction(char, prevChar) ? PYTHAGOREAN_TABLE[char] || 0 : 0);
+      return (
+        acc + (checkFunction(char, prevChar) ? PYTHAGOREAN_TABLE[char] || 0 : 0)
+      );
     }, 0);
   });
   return nameParts.reduce((acc, value) => acc + reduceToSingleDigit(value), 0);
@@ -56,7 +76,10 @@ function sumLetters(name, checkFunction) {
 
 // Function to get the life path number
 function getLifePathNumber(day, month, year) {
-  const sum = reduceToSingleDigit(day) + reduceToSingleDigit(month) + reduceToSingleDigit(year);
+  const sum =
+    reduceToSingleDigit(day) +
+    reduceToSingleDigit(month) +
+    reduceToSingleDigit(year);
   return reduceToKarmicOrSingleDigit(sum);
 }
 
@@ -117,7 +140,10 @@ function getCoreStrengthNumber(name) {
 // Function to get the personal year number
 function getPersonalYearNumber(day, month, year) {
   const currentYear = new Date().getFullYear();
-  const sum = reduceToSingleDigit(day) + reduceToSingleDigit(month) + reduceToSingleDigit(currentYear);
+  const sum =
+    reduceToSingleDigit(day) +
+    reduceToSingleDigit(month) +
+    reduceToSingleDigit(currentYear);
   return reduceToSingleDigit(sum);
 }
 
@@ -125,7 +151,9 @@ function getPersonalYearNumber(day, month, year) {
 function getLessonDebt(name) {
   const allNumbers = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const numbersInName = new Set(
-    [...name.toUpperCase()].map((char) => PYTHAGOREAN_TABLE[char]).filter(Boolean)
+    [...name.toUpperCase()]
+      .map((char) => PYTHAGOREAN_TABLE[char])
+      .filter(Boolean)
   );
   const missingNumbers = [...allNumbers].filter(
     (num) => !numbersInName.has(num)
@@ -164,16 +192,34 @@ function calculateNumerology() {
     .filter((num) => num !== 'None')
     .join(', ');
 
-  document.getElementById('lifePathNumber').innerText = `Sứ Mệnh Cuộc Đời: ${lifePathNumber}`;
-  document.getElementById('expressionNumber').innerText = `Tố Chất Tiềm Ẩn: ${expressionNumber}`;
-  document.getElementById('soulUrgeNumber').innerText = `Động Lực Bên Trong: ${soulUrgeNumber}`;
-  document.getElementById('attitudeNumber').innerText = `Thái Độ Bên Ngoài: ${attitudeNumber}`;
-  document.getElementById('personalityNumber').innerText = `Phản Ứng Ban Đầu: ${personalityNumber}`;
-  document.getElementById('destinyNumber').innerText = `Mong Muốn Ban Đầu: ${destinyNumber}`;
-  document.getElementById('coreStrengthNumber').innerText = `Năng Lượng Thành Phần Nổi Trội: ${coreStrengthNumber}`;
-  document.getElementById('personalYearNumber').innerText = `Năm Thần Số: ${personalYearNumber}`;
+  document.getElementById(
+    'lifePathNumber'
+  ).innerText = `Sứ Mệnh Cuộc Đời: ${lifePathNumber}`;
+  document.getElementById(
+    'expressionNumber'
+  ).innerText = `Tố Chất Tiềm Ẩn: ${expressionNumber}`;
+  document.getElementById(
+    'soulUrgeNumber'
+  ).innerText = `Động Lực Bên Trong: ${soulUrgeNumber}`;
+  document.getElementById(
+    'attitudeNumber'
+  ).innerText = `Thái Độ Bên Ngoài: ${attitudeNumber}`;
+  document.getElementById(
+    'personalityNumber'
+  ).innerText = `Phản Ứng Ban Đầu: ${personalityNumber}`;
+  document.getElementById(
+    'destinyNumber'
+  ).innerText = `Mong Muốn Ban Đầu: ${destinyNumber}`;
+  document.getElementById(
+    'coreStrengthNumber'
+  ).innerText = `Năng Lượng Thành Phần Nổi Trội: ${coreStrengthNumber}`;
+  document.getElementById(
+    'personalYearNumber'
+  ).innerText = `Năm Thần Số: ${personalYearNumber}`;
   document.getElementById('lessonDebt').innerText = `Nợ Bài Học: ${lessonDebt}`;
-  document.getElementById('karmicDebtNumber').innerText = `Nợ Nghiệp: ${karmicDebtNumbers}`;
+  document.getElementById(
+    'karmicDebtNumber'
+  ).innerText = `Nợ Nghiệp: ${karmicDebtNumbers}`;
 }
 
 // Function to handle keypress event
@@ -187,7 +233,7 @@ function handleKeyPress(event) {
 // Function to initialize event listeners
 function initializeEventListeners() {
   const inputs = document.querySelectorAll('input'); // Lấy tất cả các ô nhập liệu
-  inputs.forEach(input => {
+  inputs.forEach((input) => {
     input.addEventListener('keypress', handleKeyPress);
   });
 
