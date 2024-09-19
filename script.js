@@ -1,5 +1,26 @@
+// Function to remove accents from Vietnamese characters
+function removeVietnameseDiacritics(str) {
+  const accents = [
+    { base: 'A', letters: 'ÁÀẠẢÃÂẤẦẬẨẪĂẰẲẴẠA' },
+    { base: 'E', letters: 'ÉÈẸẺẼÊẾỀỆỂỄ' },
+    { base: 'I', letters: 'ÍÌỊỈĨ' },
+    { base: 'O', letters: 'ÓÒỌỎÕÔỐỒỘỔỠƠỚỜỢỞỠ' },
+    { base: 'U', letters: 'ÚÙỤỦŨƯỨỪỰỦỮ' },
+    { base: 'Y', letters: 'ÝỲỴỶỸ' },
+    { base: 'D', letters: 'Đ' }
+  ];
+
+  return accents.reduce((str, { base, letters }) => {
+    return str.split('').map(char => letters.includes(char) ? base : char).join('');
+  }, str);
+}
+//  const name = removeVietnameseDiacritics(str);
+
 // Constants for vowels, consonants, and Pythagorean table
-const VOWELS = { A: 1, E: 5, I: 9, O: 6, U: 3 };
+const VOWELS = {
+  A: 1, E: 5, I: 9, O: 6, U: 3,
+  Ă: 1, Â: 1, Ê: 5, Ô: 6, Ơ: 6, Ơ: 6
+};
 const CONSONANTS = {
   B: 2,
   C: 3,
@@ -62,7 +83,6 @@ function reduceToKarmicOrSingleDigit(number) {
     return reducedNumber;
   }
 }
-
 
 // Reduce any number to a single digit except master numbers (11, 22)
 function reduceToSingleDigit(number) {
@@ -195,9 +215,10 @@ function getKarmicDebtNumber(number) {
   return karmicDebts.includes(number) ? number : 'None';
 }
 
+
 // Function to calculate numerology based on input
 function calculateNumerology() {
-  const name = document.getElementById('name').value.toUpperCase();
+  const name = removeVietnameseDiacritics(document.getElementById('name').value.toUpperCase());
   const dob = document.getElementById('dob').value;
   const [day, month, year] = dob.split('/').map(Number);
 
