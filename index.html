@@ -8,19 +8,18 @@
 </head>
 <body>
     <div class="container">
-<img src="https://yt3.googleusercontent.com/TgmVhsTXB5JxMdN6ofQZc5kHFJ6wr3M_P2oXmxB6Shq4rfAooTNut3oR2L7cBKN53-VQdYwK=s900-c-k-c0x00ffffff-no-rj" alt="Numerology Logo" class="logo">
+        <img src="https://yt3.googleusercontent.com/TgmVhsTXB5JxMdN6ofQZc5kHFJ6wr3M_P2oXmxB6Shq4rfAooTNut3oR2L7cBKN53-VQdYwK=s900-c-k-c0x00ffffff-no-rj" alt="Numerology Logo" class="logo">
         <h1>Numerology Calculator</h1>
-        <p><label for="name">Name:</label>
-        <input type="text" id="name" placeholder="Enter your full name"></p>
-
         <p>
-  <label for="dob">Date of Birth (dd/mm/yyyy):</label>
-  <input type="text" id="dob" placeholder="dd/mm/yyyy">
-</p>
-<p id="dob-error" style="color: red;"></p>
-
-        <button onclick="calculateNumerology()">Calculate</button>
-
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your full name">
+        </p>
+        <p>
+            <label for="dob">Date of Birth (dd/mm/yyyy):</label>
+            <input type="text" id="dob" placeholder="dd/mm/yyyy">
+        </p>
+        <p id="dob-error" style="color: red;"></p>
+        <button id="calculateButton">Calculate</button>
         <div class="results">
             <p id="lifePathNumber"></p>
             <p id="expressionNumber"></p>
@@ -28,11 +27,10 @@
             <p id="attitudeNumber"></p>
             <p id="personalityNumber"></p>
             <p id="destinyNumber"></p>
-            <p id="balanceNumber"></p>
             <p id="coreStrengthNumber"></p>
             <p id="personalYearNumber"></p>
-            <p id="karmicDebtNumber"></p>
             <p id="lessonDebt"></p>
+            <p id="karmicDebtNumber"></p>
         </div>
     </div>
     <script src="script.js"></script>
