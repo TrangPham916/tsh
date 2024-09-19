@@ -194,7 +194,7 @@ function calculateNumerology() {
   document.getElementById('attitudeNumber').innerText = `Thái Độ Bên Ngoài: ${attitudeNumber}`;
   document.getElementById('personalityNumber').innerText = `Phản Ứng Ban Đầu: ${personalityNumber}`;
   document.getElementById('destinyNumber').innerText = `Mong Muốn Ban Đầu: ${destinyNumber}`;
-  document.getElementById('destinyNumber').innerText = `Cân Bằng Tâm Lý: ${destinyNumber}`;
+  document.getElementById('balanceNumber').innerText = `Cân Bằng Tâm Lý: ${balanceNumber}`;
   document.getElementById('coreStrengthNumber').innerText = `Năng Lượng Thành Phần Nổi Trội: ${coreStrengthNumber}`;
   document.getElementById('personalYearNumber').innerText = `Năm Thần Số: ${personalYearNumber}`;
   document.getElementById('lessonDebt').innerText = `Nợ Bài Học: ${lessonDebt}`;
