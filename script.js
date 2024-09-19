@@ -32,24 +32,6 @@ function reduceToKarmicOrSingleDigit(number) {
     : number;
 }
 
-
-function reduceToKarmicOrSingleDigit(number) {
-  const karmicNumbers = { 13: 4, 14: 5, 16: 7, 19: 1 };
-  while (number > 9 && !karmicNumbers[number]) {
-    number = number
-      .toString()
-      .split('')
-      .reduce((acc, digit) => acc + parseInt(digit), 0);
-  }
-  return karmicNumbers[number]
-    ? `${karmicNumbers[number]} (${number})`
-    : number;
-}
-
-
-
-
-
 // Reduce any number to a single digit except master numbers (11, 22)
 function reduceToSingleDigit(number) {
   while (number > 9 && number !== 11 && number !== 22) {
