@@ -1,60 +1,51 @@
 // Function to remove accents from Vietnamese characters
 function removeVietnameseDiacritics(str) {
   const accents = [
-    { base: 'A', letters: 'ÁÀẠẢÃÂẤẦẬẨẪĂẰẲẴẠA' },
+    { base: 'A', letters: 'ÁÀẠẢÃÂẤẦẬẨẪĂẰẲẴẠ' },
     { base: 'E', letters: 'ÉÈẸẺẼÊẾỀỆỂỄ' },
     { base: 'I', letters: 'ÍÌỊỈĨ' },
-    { base: 'O', letters: 'ÓÒỌỎÕÔỐỒỘỔỠƠỚỜỢỞỠ' },
-    { base: 'U', letters: 'ÚÙỤỦŨƯỨỪỰỦỮ' },
+    { base: 'O', letters: 'ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ' },
+    { base: 'U', letters: 'ÚÙỤỦŨƯỨỪỰỬỮ' },
     { base: 'Y', letters: 'ÝỲỴỶỸ' },
-    { base: 'D', letters: 'Đ' }
+    { base: 'D', letters: 'Đ' },
   ];
 
   return accents.reduce((str, { base, letters }) => {
-    return str.split('').map(char => letters.includes(char) ? base : char).join('');
+    const regex = new RegExp(`[${letters}]`, 'g');
+    return str.replace(regex, base);
   }, str);
 }
-//  const name = removeVietnameseDiacritics(str);
 
 // Constants for vowels, consonants, and Pythagorean table
 const VOWELS = {
   A: 1, E: 5, I: 9, O: 6, U: 3,
-  Ă: 1, Â: 1, Ê: 5, Ô: 6, Ơ: 6, Ơ: 6
+  Ă: 1, Â: 1, Ê: 5, Ô: 6, Ơ: 6, Ư: 3,
 };
 const CONSONANTS = {
-  B: 2,
-  C: 3,
-  D: 4,
-  F: 6,
-  G: 7,
-  H: 8,
-  J: 1,
-  K: 2,
-  L: 3,
-  M: 4,
-  N: 5,
-  P: 7,
-  Q: 8,
-  R: 9,
-  S: 1,
-  T: 2,
-  V: 4,
-  W: 5,
-  X: 6,
-  Z: 8,
+  B: 2, C: 3, D: 4, F: 6, G: 7, H: 8,
+  J: 1, K: 2, L: 3, M: 4, N: 5, P: 7,
+  Q: 8, R: 9, S: 1, T: 2, V: 4, W: 5,
+  X: 6, Z: 8,
 };
 const PYTHAGOREAN_TABLE = {
   ...VOWELS,
   ...CONSONANTS,
-  Y: 7, // Special case, handled in functions based on context
+  Y: 7, // Special case, determined dynamically in isVowel
 };
 
 // Helper function to determine if a letter is a vowel
 function isVowel(letter, prevLetter) {
+  const VOWELS_EXCEPT_Y = ['A', 'E', 'I', 'O', 'U', 'Ă', 'Â', 'Ê', 'Ô', 'Ơ', 'Ư'];
+
   if (letter === 'Y') {
-    return prevLetter && !isVowel(prevLetter); // "Y" is a vowel if preceded by a consonant
+    if (!prevLetter || VOWELS_EXCEPT_Y.includes(prevLetter)) {
+      return false; // "Y" is a consonant if it stands alone or follows a vowel
+    } else {
+      return true; // "Y" is a vowel if it follows a consonant
+    }
   }
-  return !!VOWELS[letter];
+
+  return VOWELS_EXCEPT_Y.includes(letter); // Regular vowels
 }
 
 // Helper function to reduce numbers to a single digit or karmic number
@@ -62,19 +53,17 @@ function reduceToKarmicOrSingleDigit(number) {
   const karmicNumbers = { 13: 4, 14: 5, 16: 7, 19: 1 };
   const masterNumbers = new Set([11, 22]);
 
-  // Reduce the number to a single digit or special number if needed
   let reducedNumber = number;
   while (reducedNumber > 9) {
     if (karmicNumbers[reducedNumber] || masterNumbers.has(reducedNumber)) {
-      break; // Stop reducing if we hit a karmic or master number
+      break;
     }
     reducedNumber = reducedNumber
       .toString()
       .split('')
-      .reduce((acc, digit) => acc + parseInt(digit), 0);
+      .reduce((acc, digit) => acc + parseInt(digit, 10), 0);
   }
 
-  // Return karmic number representation or master number
   if (karmicNumbers[reducedNumber]) {
     return `${karmicNumbers[reducedNumber]} (${reducedNumber})`;
   } else if (masterNumbers.has(reducedNumber)) {
@@ -90,7 +79,7 @@ function reduceToSingleDigit(number) {
     number = number
       .toString()
       .split('')
-      .reduce((acc, digit) => acc + parseInt(digit), 0);
+      .reduce((acc, digit) => acc + parseInt(digit, 10), 0);
   }
   return number;
 }
@@ -99,9 +88,9 @@ function reduceToSingleDigit(number) {
 function sumLetters(name, checkFunction) {
   const nameParts = name.split(' ').map((part) => {
     return [...part].reduce((acc, char, idx) => {
-      const prevChar = part[idx - 1]; // Previous character to check context for "Y"
+      const prevChar = idx > 0 ? part[idx - 1].toUpperCase() : null;
       return (
-        acc + (checkFunction(char, prevChar) ? PYTHAGOREAN_TABLE[char] || 0 : 0)
+        acc + (checkFunction(char.toUpperCase(), prevChar) ? PYTHAGOREAN_TABLE[char.toUpperCase()] || 0 : 0)
       );
     }, 0);
   });
@@ -119,7 +108,7 @@ function getLifePathNumber(day, month, year) {
 
 // Function to get the expression number (using all letters)
 function getExpressionNumber(name) {
-  const sum = sumLetters(name, () => true); // Sum all letters
+  const sum = sumLetters(name, () => true);
   return reduceToKarmicOrSingleDigit(sum);
 }
 
@@ -137,27 +126,23 @@ function getAttitudeNumber(name) {
 
 // Function to get the personality number (first name, all letters)
 function getPersonalityNumber(name) {
-  const firstName = name.split(' ').pop(); // Get the last word in the name string
+  const firstName = name.split(' ').pop();
   return sumLetters(firstName, () => true);
 }
 
 // Function to get the destiny number (first name, sum vowels)
 function getDestinyNumber(name) {
-  const firstName = name.split(' ').pop(); // Get the last word in the name string
+  const firstName = name.split(' ').pop();
   return sumLetters(firstName, isVowel);
 }
 
+// Function to get the balance number
 function getBalanceNumber(name) {
-  // Lấy các phần của tên đầy đủ
   const nameParts = name.split(' ');
-
-  // Tính tổng giá trị của chữ cái đầu tiên trong từng phần
   const total = nameParts.reduce((acc, part) => {
-    const firstChar = part.charAt(0).toUpperCase(); // Lấy chữ cái đầu tiên và chuyển thành chữ hoa
-    return acc + (PYTHAGOREAN_TABLE[firstChar] || 0); // Cộng giá trị của chữ cái vào tổng
+    const firstChar = part.charAt(0).toUpperCase();
+    return acc + (PYTHAGOREAN_TABLE[firstChar] || 0);
   }, 0);
-
-  // Trả về giá trị đã giảm về một chữ số đơn
   return reduceToSingleDigit(total);
 }
 
@@ -170,18 +155,14 @@ function getCoreStrengthNumber(name) {
     return acc;
   }, {});
 
-  // Find letters that appear at least 3 times
   const dominantLetters = Object.keys(counts).filter(
     (char) => counts[char] >= 3
   );
 
-  // Map these letters to their corresponding numbers
   const numbers = dominantLetters.map((char) => PYTHAGOREAN_TABLE[char]);
 
-  // Remove duplicates (e.g., if multiple letters map to the same number, keep only one)
   const uniqueNumbers = [...new Set(numbers)];
 
-  // Return the results or 'None' if no dominant letters
   return uniqueNumbers.length > 0 ? uniqueNumbers.join(', ') : 'None';
 }
 
@@ -214,7 +195,6 @@ function getKarmicDebtNumber(number) {
   const karmicDebts = [13, 14, 16, 19];
   return karmicDebts.includes(number) ? number : 'None';
 }
-
 
 // Function to calculate numerology based on input
 function calculateNumerology() {
@@ -278,21 +258,21 @@ function calculateNumerology() {
 // Function to handle keypress event
 function handleKeyPress(event) {
   if (event.key === 'Enter') {
-    event.preventDefault(); // Ngăn chặn hành vi mặc định của Enter (nếu có)
-    calculateNumerology(); // Gọi hàm calculateNumerology()
+    event.preventDefault();
+    calculateNumerology();
   }
 }
 
 // Function to initialize event listeners
 function initializeEventListeners() {
-  const inputs = document.querySelectorAll('input'); // Lấy tất cả các ô nhập liệu
+  const inputs = document.querySelectorAll('input');
   inputs.forEach((input) => {
     input.addEventListener('keypress', handleKeyPress);
   });
 
   const calculateButton = document.getElementById('calculateButton');
-  calculateButton.addEventListener('click', calculateNumerology); // Đảm bảo nút Calculate hoạt động
+  calculateButton.addEventListener('click', calculateNumerology);
 }
 
-// Call initialize function when the document is ready
+// Initialize when document is ready
 document.addEventListener('DOMContentLoaded', initializeEventListeners);
