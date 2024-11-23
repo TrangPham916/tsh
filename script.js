@@ -276,3 +276,31 @@ function initializeEventListeners() {
 
 // Initialize when document is ready
 document.addEventListener('DOMContentLoaded', initializeEventListeners);
+
+function formatDOBInput() {
+  const dobInput = document.getElementById('dob');
+
+  dobInput.addEventListener('input', (event) => {
+    let value = dobInput.value.replace(/\D/g, ''); // Loại bỏ ký tự không phải số
+    if (value.length > 2 && value.length <= 4) {
+      value = `${value.slice(0, 2)}/${value.slice(2)}`;
+    } else if (value.length > 4) {
+      value = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4, 8)}`;
+    }
+    dobInput.value = value;
+  });
+
+  dobInput.addEventListener('blur', () => {
+    const value = dobInput.value;
+    const dobError = document.getElementById('dob-error');
+    const isValid = /^(\d{2})\/(\d{2})\/(\d{4})$/.test(value);
+
+    if (!isValid && value !== '') {
+      dobError.textContent = 'Please enter a valid date in the format dd/mm/yyyy.';
+    } else {
+      dobError.textContent = '';
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', formatDOBInput);
