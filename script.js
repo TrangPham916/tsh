@@ -39,13 +39,13 @@ function isVowel(letter, prevLetter) {
 
   if (letter === 'Y') {
     if (!prevLetter || VOWELS_EXCEPT_Y.includes(prevLetter)) {
-      return false; // "Y" is a consonant if it stands alone or follows a vowel
+      return false; // "Y" là phụ âm nếu đứng một mình hoặc sau nguyên âm
     } else {
-      return true; // "Y" is a vowel if it follows a consonant
+      return true; // "Y" là nguyên âm nếu sau phụ âm
     }
   }
 
-  return VOWELS_EXCEPT_Y.includes(letter); // Regular vowels
+  return VOWELS_EXCEPT_Y.includes(letter); // Các nguyên âm thông thường
 }
 
 // Helper function to reduce numbers to a single digit or karmic number
@@ -88,7 +88,7 @@ function reduceToSingleDigit(number) {
 function sumLetters(name, checkFunction) {
   const nameParts = name.split(' ').map((part) => {
     return [...part].reduce((acc, char, idx) => {
-      const prevChar = idx > 0 ? part[idx - 1].toUpperCase() : null;
+      const prevChar = idx > 0 ? part[idx - 1].toUpperCase() : null; // Lấy ký tự trước
       return (
         acc + (checkFunction(char.toUpperCase(), prevChar) ? PYTHAGOREAN_TABLE[char.toUpperCase()] || 0 : 0)
       );
@@ -96,6 +96,7 @@ function sumLetters(name, checkFunction) {
   });
   return nameParts.reduce((acc, value) => acc + reduceToSingleDigit(value), 0);
 }
+
 
 // Function to get the life path number
 function getLifePathNumber(day, month, year) {
@@ -132,9 +133,10 @@ function getPersonalityNumber(name) {
 
 // Function to get the destiny number (first name, sum vowels)
 function getDestinyNumber(name) {
-  const firstName = name.split(' ').pop();
-  return sumLetters(firstName, isVowel);
+  const firstName = name.split(' ').pop(); // Lấy phần cuối của tên
+  return sumLetters(firstName, isVowel); // Tính chỉ dựa trên nguyên âm
 }
+
 
 // Function to get the balance number
 function getBalanceNumber(name) {
