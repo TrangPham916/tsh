@@ -34,19 +34,27 @@ const PYTHAGOREAN_TABLE = {
 };
 
 // Helper function to determine if a letter is a vowel
-function isVowel(letter, prevLetter) {
+function isVowel(letter, prevLetter, nextLetter) {
   const VOWELS_EXCEPT_Y = ['A', 'E', 'I', 'O', 'U', 'Ă', 'Â', 'Ê', 'Ô', 'Ơ', 'Ư'];
 
   if (letter === 'Y') {
-    if (!prevLetter || VOWELS_EXCEPT_Y.includes(prevLetter)) {
-      return false; // "Y" là phụ âm nếu đứng một mình hoặc sau nguyên âm
-    } else {
-      return true; // "Y" là nguyên âm nếu sau phụ âm
+    // Trường hợp "Y" ở cuối từ, luôn là nguyên âm
+    if (!nextLetter) {
+      return true;
+    }
+    // Nếu "Y" đứng sau phụ âm, là nguyên âm
+    if (prevLetter && !VOWELS_EXCEPT_Y.includes(prevLetter)) {
+      return true;
+    }
+    // Nếu "Y" đứng sau nguyên âm, là phụ âm
+    if (prevLetter && VOWELS_EXCEPT_Y.includes(prevLetter)) {
+      return false;
     }
   }
 
   return VOWELS_EXCEPT_Y.includes(letter); // Các nguyên âm thông thường
 }
+
 
 // Helper function to reduce numbers to a single digit or karmic number
 function reduceToKarmicOrSingleDigit(number) {
@@ -89,13 +97,15 @@ function sumLetters(name, checkFunction) {
   const nameParts = name.split(' ').map((part) => {
     return [...part].reduce((acc, char, idx) => {
       const prevChar = idx > 0 ? part[idx - 1].toUpperCase() : null; // Lấy ký tự trước
+      const nextChar = idx < part.length - 1 ? part[idx + 1].toUpperCase() : null; // Lấy ký tự sau
       return (
-        acc + (checkFunction(char.toUpperCase(), prevChar) ? PYTHAGOREAN_TABLE[char.toUpperCase()] || 0 : 0)
+        acc + (checkFunction(char.toUpperCase(), prevChar, nextChar) ? PYTHAGOREAN_TABLE[char.toUpperCase()] || 0 : 0)
       );
     }, 0);
   });
   return nameParts.reduce((acc, value) => acc + reduceToSingleDigit(value), 0);
 }
+
 
 
 // Function to get the life path number
