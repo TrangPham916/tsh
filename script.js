@@ -316,3 +316,55 @@ function formatDOBInput() {
 }
 
 document.addEventListener('DOMContentLoaded', formatDOBInput);
+
+
+function calculateNumerology() {
+  const name = removeVietnameseDiacritics(document.getElementById('name').value.toUpperCase());
+  const dob = document.getElementById('dob').value;
+  const [day, month, year] = dob.split('/').map(Number);
+
+  const lifePathNumber = getLifePathNumber(day, month, year);
+  const expressionNumber = getExpressionNumber(name);
+  const soulUrgeNumber = getSoulUrgeNumber(name);
+  const attitudeNumber = getAttitudeNumber(name);
+  const personalityNumber = getPersonalityNumber(name);
+  const destinyNumber = getDestinyNumber(name);
+  const balanceNumber = getBalanceNumber(name);
+  const coreStrengthNumber = getCoreStrengthNumber(name);
+  const personalYearNumber = getPersonalYearNumber(day, month, year);
+  const lessonDebt = getLessonDebt(name);
+
+  const karmicDebtNumbers = [
+    getKarmicDebtNumber(lifePathNumber),
+    getKarmicDebtNumber(expressionNumber),
+    getKarmicDebtNumber(soulUrgeNumber),
+    getKarmicDebtNumber(attitudeNumber),
+  ]
+    .filter((num) => num !== 'None')
+    .join(', ');
+
+  // Chuẩn bị dữ liệu cho bảng
+  const resultsData = [
+    ['Sứ Mệnh Cuộc Đời', lifePathNumber],
+    ['Tố Chất Tiềm Ẩn', expressionNumber],
+    ['Động Lực Bên Trong', soulUrgeNumber],
+    ['Thái Độ Bên Ngoài', attitudeNumber],
+    ['Phản Ứng Ban Đầu', personalityNumber],
+    ['Mong Muốn Ban Đầu', destinyNumber],
+    ['Số Cân Bằng', balanceNumber],
+    ['Năng Lượng Thành Phần Nổi Trội', coreStrengthNumber],
+    ['Năm Thần Số', personalYearNumber],
+    ['Nợ Bài Học', lessonDebt],
+    ['Nợ Nghiệp', karmicDebtNumbers],
+  ];
+
+  // Hiển thị kết quả vào bảng
+  const resultsTableBody = document.getElementById('resultsTableBody');
+  resultsTableBody.innerHTML = ''; // Clear previous results
+
+  resultsData.forEach(([attribute, value]) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${attribute}</td><td>${value}</td>`;
+    resultsTableBody.appendChild(row);
+  });
+}
