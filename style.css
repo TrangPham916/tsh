@@ -5,6 +5,7 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 /* Định dạng cho phần container */
@@ -39,12 +40,13 @@ label {
 }
 
 input {
-  width: 100%;
+  width: 60%;
   padding: 10px;
   margin-top: 5px;
   margin-bottom: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  text-align: center;
 }
 
 /* Định dạng cho nút bấm */
@@ -65,35 +67,25 @@ button:hover {
   background-color: #266ca5;
 }
 
-/* Định dạng cho phần kết quả */
+/* Định dạng cho bảng kết quả */
 .results {
-  margin-top: 20px;
-}
-
-.results p {
-  font-size: 18px;
-  padding: 5px 0;
-}
-
-/* Định dạng cho bảng kết quả result */
-.results {
-  width: 100%;
+  width: 70%;
   border-collapse: collapse;
   margin-top: 20px;
   font-size: 16px;
+  margin: 20px auto;
 }
 
 .results th,
 .results td {
   border: 1px solid #ccc;
-  padding: 10px;
-  text-align: left;
+  padding: 10px; */
 }
 
 .results th {
   background-color: rgb(66, 118, 196);
   color: white;
-}
+  }
 
 .results tr:nth-child(even) {
   background-color: #f9f9f9;
