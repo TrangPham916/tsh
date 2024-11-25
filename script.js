@@ -21,12 +21,14 @@ const VOWELS = {
   A: 1, E: 5, I: 9, O: 6, U: 3,
   Ă: 1, Â: 1, Ê: 5, Ô: 6, Ơ: 6, Ư: 3,
 };
+
 const CONSONANTS = {
   B: 2, C: 3, D: 4, F: 6, G: 7, H: 8,
   J: 1, K: 2, L: 3, M: 4, N: 5, P: 7,
   Q: 8, R: 9, S: 1, T: 2, V: 4, W: 5,
   X: 6, Z: 8,
 };
+
 const PYTHAGOREAN_TABLE = {
   ...VOWELS,
   ...CONSONANTS,
@@ -38,22 +40,22 @@ function isVowel(letter, prevLetter, nextLetter) {
   const VOWELS_EXCEPT_Y = ['A', 'E', 'I', 'O', 'U', 'Ă', 'Â', 'Ê', 'Ô', 'Ơ', 'Ư'];
 
   if (letter === 'Y') {
-    // Trường hợp "Y" ở cuối từ, luôn là nguyên âm
-    if (!nextLetter) {
+    // Trường hợp 1: "Y" ở cuối từ và không có nguyên âm trước, là nguyên âm
+    if (!nextLetter && (!prevLetter || !VOWELS_EXCEPT_Y.includes(prevLetter))) {
       return true;
     }
-    // Nếu "Y" đứng sau phụ âm, là nguyên âm
-    if (prevLetter && !VOWELS_EXCEPT_Y.includes(prevLetter)) {
+    // Trường hợp 2: "Y" đứng sau phụ âm và không có nguyên âm liền trước hoặc sau
+    if (prevLetter && !VOWELS_EXCEPT_Y.includes(prevLetter) && (!nextLetter || !VOWELS_EXCEPT_Y.includes(nextLetter))) {
       return true;
     }
-    // Nếu "Y" đứng sau nguyên âm, là phụ âm
-    if (prevLetter && VOWELS_EXCEPT_Y.includes(prevLetter)) {
-      return false;
-    }
+    // Các trường hợp khác, "Y" được xem là phụ âm
+    return false;
   }
 
-  return VOWELS_EXCEPT_Y.includes(letter); // Các nguyên âm thông thường
+  // Các nguyên âm thông thường
+  return VOWELS_EXCEPT_Y.includes(letter);
 }
+
 
 
 // Helper function to reduce numbers to a single digit or karmic number
