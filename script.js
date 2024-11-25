@@ -18,17 +18,15 @@ function removeVietnameseDiacritics(str) {
 
 // Constants for vowels, consonants, and Pythagorean table
 const VOWELS = {
-  A: 1, E: 5, I: 9, O: 6, U: 3,
+  A: 1, E: 5, I: 9, O: 6, U: 3, Y: 7,
   Ă: 1, Â: 1, Ê: 5, Ô: 6, Ơ: 6, Ư: 3,
 };
-
 const CONSONANTS = {
   B: 2, C: 3, D: 4, F: 6, G: 7, H: 8,
   J: 1, K: 2, L: 3, M: 4, N: 5, P: 7,
   Q: 8, R: 9, S: 1, T: 2, V: 4, W: 5,
-  X: 6, Z: 8,
+  X: 6, Z: 8, Y:7,
 };
-
 const PYTHAGOREAN_TABLE = {
   ...VOWELS,
   ...CONSONANTS,
@@ -55,6 +53,7 @@ function isVowel(letter, prevLetter, nextLetter) {
   // Các nguyên âm thông thường
   return VOWELS_EXCEPT_Y.includes(letter);
 }
+
 
 
 
@@ -107,6 +106,7 @@ function sumLetters(name, checkFunction) {
   });
   return nameParts.reduce((acc, value) => acc + reduceToSingleDigit(value), 0);
 }
+
 
 
 
@@ -201,7 +201,7 @@ function getLessonDebt(name) {
   const missingNumbers = [...allNumbers].filter(
     (num) => !numbersInName.has(num)
   );
-  return missingNumbers.length > 0 ? missingNumbers.join(', ') : 'None';
+  return missingNumbers.length > 0 ? missingNumbers.join(', ') : '';
 }
 
 // Function to get karmic debt number
@@ -319,7 +319,6 @@ function formatDOBInput() {
 
 document.addEventListener('DOMContentLoaded', formatDOBInput);
 
-
 function calculateNumerology() {
   const name = removeVietnameseDiacritics(document.getElementById('name').value.toUpperCase());
   const dob = document.getElementById('dob').value;
@@ -357,7 +356,6 @@ function calculateNumerology() {
     ['Năng Lượng Thành Phần Nổi Trội', coreStrengthNumber],
     ['Năm Thần Số', personalYearNumber],
     ['Nợ Bài Học', lessonDebt],
-    ['Nợ Nghiệp', karmicDebtNumbers],
   ];
 
   // Hiển thị kết quả vào bảng
